@@ -1,15 +1,9 @@
-import React from 'react';
-import {
-  AlertOctagon,
-  AlertTriangle,
-  CheckCircle,
-  Info,
-  X,
-} from 'react-feather';
+import React from "react";
+import { AlertOctagon, AlertTriangle, CheckCircle, Info, X } from "react-feather";
 
-import VisuallyHidden from '../VisuallyHidden';
+import VisuallyHidden from "../VisuallyHidden";
 
-import styles from './Toast.module.css';
+import styles from "./Toast.module.css";
 
 const ICONS_BY_VARIANT = {
   notice: Info,
@@ -18,16 +12,22 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast() {
+function Toast({ message, variant, toastIsOpen }) {
   return (
     <div className={`${styles.toast} ${styles.notice}`}>
       <div className={styles.iconContainer}>
-        <Info size={24} />
+        {variant === "notice" ? (
+          <Info size={24} />
+        ) : variant === "warning" ? (
+          <AlertTriangle />
+        ) : variant === "success" ? (
+          <CheckCircle />
+        ) : (
+          <AlertOctagon />
+        )}
       </div>
-      <p className={styles.content}>
-        16 photos have been uploaded
-      </p>
-      <button className={styles.closeButton}>
+      <p className={styles.content}>{message}</p>
+      <button className={styles.closeButton} onClick={() => toastIsOpen(false)}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
