@@ -1,16 +1,30 @@
 import React, { useState } from "react";
 
 import Button from "../Button";
-import Toast from "../Toast/Toast";
+import ToastShelf from "../ToastShelf";
 
 import styles from "./ToastPlayground.module.css";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
-  const [value, setValue] = useState({ textArea: "", radioButton: "" });
-  const [toastIsOpen, setToastIsOpen] = useState(false);
-  console.log(value);
+  const [toasts, setToasts] = useState([
+    { id: crypto.randomUUID(), message: "Hej", variant: "notice" },
+    { id: crypto.randomUUID(), message: "Hej då", variant: "success" },
+  ]);
+  const [value, setValue] = useState({ message: "", variant: "notice" });
+
+  const handleOnSubmit = (e) => {
+    const newToasts = [
+      ...toasts,
+      {
+        id: crypto.randomUUID(),
+        message: value.message,
+        variant: value.variant,
+      },
+    ];
+    setToasts(newToasts);
+  };
 
   const radioButtons = VARIANT_OPTIONS.map((type) => (
     <label key={type} htmlFor={`variant-${type}`}>
@@ -19,11 +33,11 @@ function ToastPlayground() {
         type="radio"
         name="variant"
         value={type}
-        checked={value.radioButton === type}
+        checked={value.variant === type}
         onChange={(e) => {
           setValue({
             ...value,
-            radioButton: e.target.value,
+            variant: e.target.value,
           });
         }}
       />
@@ -32,13 +46,13 @@ function ToastPlayground() {
   ));
 
   return (
-    <div className={styles.wrapper}>
+    <form className={styles.wrapper} onClick={(e) => handleOnSubmit(e)}>
       <header>
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
 
-      {toastIsOpen && <Toast message={value.textArea} variant={value.radioButton} onToastIsOpen={setToastIsOpen} />}
+      {toasts.length > 0 && <ToastShelf toasts={toasts} />}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -49,8 +63,8 @@ function ToastPlayground() {
             <textarea
               id="message"
               className={styles.messageInput}
-              value={value.textArea}
-              onChange={(e) => setValue({ ...value, textArea: e.target.value })}
+              value={value.message}
+              onChange={(e) => setValue({ ...value, message: e.target.value })}
             />
           </div>
         </div>
@@ -63,11 +77,11 @@ function ToastPlayground() {
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button onClick={() => setToastIsOpen(true)}>Pop Toast!</Button>
+            <Button type="submit">Pop Toast!</Button>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 
