@@ -38,7 +38,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      {toastIsOpen && <Toast message={value.textArea} variant={value.radioButton} toastIsOpen={setToastIsOpen} />}
+      {toastIsOpen && <Toast message={value.textArea} variant={value.radioButton} onToastIsOpen={setToastIsOpen} />}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
