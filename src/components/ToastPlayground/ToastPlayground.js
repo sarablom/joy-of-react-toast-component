@@ -13,16 +13,16 @@ function ToastPlayground() {
         message: "",
         variant: VARIANT_OPTIONS[0],
     });
-    const { handleCreateToasts, handleDismissToast } = useContext(ToastContext);
+    const { createToasts, dismissToast } = useContext(ToastContext);
 
     const handleOnSubmit = e => {
         e.preventDefault();
-        handleCreateToasts(value);
+        createToasts(value);
         setValue({ message: "", variant: VARIANT_OPTIONS[0] });
     };
 
     const handleOnClose = id => {
-        handleDismissToast(id);
+        dismissToast(id);
     };
 
     const radioButtons = VARIANT_OPTIONS.map(type => (
