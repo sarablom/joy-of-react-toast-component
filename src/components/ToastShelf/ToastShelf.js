@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ToastContext } from "../ToastProvider/ToastProvider";
+import { ToastContext } from "../../context/ToastProvider/ToastProvider";
 
 import Toast from "../Toast";
 import styles from "./ToastShelf.module.css";
@@ -10,13 +10,12 @@ function ToastShelf({ onDismiss }) {
         <ol
             className={styles.wrapper}
             role="region"
-            aria-live="assertive"
+            aria-live="polite"
             aria-label="Notification"
         >
             {toasts.map(toast => (
-                <li className={styles.toastWrapper}>
+                <li className={styles.toastWrapper} key={toast.id}>
                     <Toast
-                        key={toast.id}
                         id={toast.id}
                         message={toast.message}
                         variant={toast.variant}

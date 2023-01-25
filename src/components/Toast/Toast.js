@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useContext } from "react";
+
 import {
     AlertOctagon,
     AlertTriangle,
@@ -6,7 +6,6 @@ import {
     Info,
     X,
 } from "react-feather";
-import { ToastContext } from "../ToastProvider/ToastProvider";
 
 import VisuallyHidden from "../VisuallyHidden";
 
@@ -21,28 +20,6 @@ const ICONS_BY_VARIANT = {
 
 function Toast({ message, variant, id, onDismiss }) {
     const Icon = ICONS_BY_VARIANT[variant];
-    const { dismissAllToasts } = useContext(ToastContext);
-
-    const dismissToastsOnEscKeyPress = useCallback(
-        event => {
-            if (event.key === "Escape") {
-                dismissAllToasts();
-            }
-        },
-        [dismissAllToasts]
-    );
-
-    useEffect(() => {
-        document.addEventListener("keydown", dismissToastsOnEscKeyPress, false);
-
-        return () => {
-            document.removeEventListener(
-                "keydown",
-                dismissToastsOnEscKeyPress,
-                false
-            );
-        };
-    }, [dismissToastsOnEscKeyPress]);
 
     return (
         <div className={`${styles.toast} ${styles[variant]}`}>

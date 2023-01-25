@@ -1,5 +1,5 @@
 import React from "react";
-import ToastProvider from "../ToastProvider/ToastProvider";
+import ToastProvider from "../../context/ToastProvider/ToastProvider";
 
 import ToastPlayground from "../ToastPlayground";
 import Footer from "../Footer";

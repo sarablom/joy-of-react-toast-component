@@ -1,4 +1,5 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useCallback } from "react";
+import { useKeyDown } from "../../hooks/useEscapeKey";
 
 export const ToastContext = createContext();
 
@@ -22,14 +23,14 @@ function ToastProvider({ children }) {
         setToasts(filteredToasts);
     };
 
-    const dismissAllToasts = () => {
+    const handleEscape = useCallback(() => {
         setToasts([]);
-    };
+    }, []);
+
+    useKeyDown("Escape", handleEscape);
 
     return (
-        <ToastContext.Provider
-            value={{ toasts, createToast, dismissToast, dismissAllToasts }}
-        >
+        <ToastContext.Provider value={{ toasts, createToast, dismissToast }}>
             {children}
         </ToastContext.Provider>
     );

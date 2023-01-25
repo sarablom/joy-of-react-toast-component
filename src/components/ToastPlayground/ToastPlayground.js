@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { ToastContext } from "../ToastProvider/ToastProvider";
+import { ToastContext } from "../../context/ToastProvider/ToastProvider";
 
 import Button from "../Button";
 import ToastShelf from "../ToastShelf";

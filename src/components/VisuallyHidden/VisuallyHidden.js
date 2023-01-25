@@ -32,9 +32,9 @@ const VisuallyHidden = ({ children, className, ...delegated }) => {
   }
 
   return (
-    <div className={`${className} ${styles.wrapper}`} {...delegated}>
+    <span className={`${className} ${styles.wrapper}`} {...delegated}>
       {children}
-    </div>
+    </span>
   );
 };
 
