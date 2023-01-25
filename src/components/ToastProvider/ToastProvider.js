@@ -5,7 +5,7 @@ export const ToastContext = createContext();
 function ToastProvider({ children }) {
     const [toasts, setToasts] = useState([]);
 
-    const createToasts = value => {
+    const createToast = value => {
         const newToasts = [
             ...toasts,
             {
@@ -22,9 +22,13 @@ function ToastProvider({ children }) {
         setToasts(filteredToasts);
     };
 
+    const dismissAllToasts = () => {
+        setToasts([]);
+    };
+
     return (
         <ToastContext.Provider
-            value={{ toasts, createToasts, dismissToast }}
+            value={{ toasts, createToast, dismissToast, dismissAllToasts }}
         >
             {children}
         </ToastContext.Provider>
