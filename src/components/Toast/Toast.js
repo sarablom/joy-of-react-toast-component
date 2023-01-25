@@ -23,7 +23,7 @@ function Toast({ message, variant, id, onDismiss }) {
     const Icon = ICONS_BY_VARIANT[variant];
     const { dismissAllToasts } = useContext(ToastContext);
 
-    const escFunction = useCallback(
+    const dismissToastsOnEscKeyPress = useCallback(
         event => {
             if (event.key === "Escape") {
                 dismissAllToasts();
@@ -33,12 +33,16 @@ function Toast({ message, variant, id, onDismiss }) {
     );
 
     useEffect(() => {
-        document.addEventListener("keydown", escFunction, false);
+        document.addEventListener("keydown", dismissToastsOnEscKeyPress, false);
 
         return () => {
-            document.removeEventListener("keydown", escFunction, false);
+            document.removeEventListener(
+                "keydown",
+                dismissToastsOnEscKeyPress,
+                false
+            );
         };
-    }, [escFunction]);
+    }, [dismissToastsOnEscKeyPress]);
 
     return (
         <div className={`${styles.toast} ${styles[variant]}`}>
