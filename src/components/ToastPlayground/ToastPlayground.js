@@ -9,8 +9,11 @@ import styles from "./ToastPlayground.module.css";
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
-    const [value, setValue] = useState({ message: "", variant: VARIANT_OPTIONS[0] });
-    const { toasts, setToasts } = useContext(ToastContext)
+    const [value, setValue] = useState({
+        message: "",
+        variant: VARIANT_OPTIONS[0],
+    });
+    const { toasts, setToasts } = useContext(ToastContext);
 
     const handleOnSubmit = e => {
         e.preventDefault();
@@ -26,11 +29,11 @@ function ToastPlayground() {
         setValue({ message: "", variant: VARIANT_OPTIONS[0] });
     };
 
-    const handleOnClose = (id) => {
+    const handleOnClose = id => {
         const filteredToasts = toasts.filter(toast => toast.id !== id);
 
         setToasts(filteredToasts);
-    }
+    };
 
     const radioButtons = VARIANT_OPTIONS.map(type => (
         <label key={type} htmlFor={`variant-${type}`}>
@@ -58,7 +61,7 @@ function ToastPlayground() {
                 <h1>Toast Playground</h1>
             </header>
 
-            <ToastShelf toasts={toasts} onDismiss={handleOnClose} />
+            <ToastShelf onDismiss={handleOnClose} />
 
             <form className={styles.controlsWrapper} onSubmit={handleOnSubmit}>
                 <div className={styles.row}>
