@@ -13,26 +13,16 @@ function ToastPlayground() {
         message: "",
         variant: VARIANT_OPTIONS[0],
     });
-    const { toasts, setToasts } = useContext(ToastContext);
+    const { handleCreateToasts, handleDismissToast } = useContext(ToastContext);
 
     const handleOnSubmit = e => {
         e.preventDefault();
-        const newToasts = [
-            ...toasts,
-            {
-                id: crypto.randomUUID(),
-                message: value.message,
-                variant: value.variant,
-            },
-        ];
-        setToasts(newToasts);
+        handleCreateToasts(value);
         setValue({ message: "", variant: VARIANT_OPTIONS[0] });
     };
 
     const handleOnClose = id => {
-        const filteredToasts = toasts.filter(toast => toast.id !== id);
-
-        setToasts(filteredToasts);
+        handleDismissToast(id);
     };
 
     const radioButtons = VARIANT_OPTIONS.map(type => (
