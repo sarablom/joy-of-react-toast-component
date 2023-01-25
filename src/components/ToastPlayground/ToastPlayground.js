@@ -13,11 +13,11 @@ function ToastPlayground() {
         message: "",
         variant: VARIANT_OPTIONS[0],
     });
-    const { createToasts, dismissToast } = useContext(ToastContext);
+    const { createToast, dismissToast } = useContext(ToastContext);
 
     const handleOnSubmit = e => {
         e.preventDefault();
-        createToasts(value);
+        createToast(value);
         setValue({ message: "", variant: VARIANT_OPTIONS[0] });
     };
 
