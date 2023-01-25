@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ToastContext } from "../ToastProvider/ToastProvider";
 
 import Button from "../Button";
 import ToastShelf from "../ToastShelf";
@@ -8,8 +9,8 @@ import styles from "./ToastPlayground.module.css";
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
-    const [toasts, setToasts] = useState([]);
     const [value, setValue] = useState({ message: "", variant: VARIANT_OPTIONS[0] });
+    const { toasts, setToasts } = useContext(ToastContext)
 
     const handleOnSubmit = e => {
         e.preventDefault();
